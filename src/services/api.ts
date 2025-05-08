@@ -13,6 +13,6 @@ export const fetchPosts = async (
   
   return {
     data,
-    nextPage: page < 3 ? page + 1 : null // 模拟只有3页数据
+    nextPage: page < 10 ? page + 1 : null // 模拟只有3页数据
   };
 };
