@@ -1,9 +1,11 @@
 import React from 'react';
-import { Post } from '../types/post';
 import styled from 'styled-components';
-import { LikeOutlined } from '@ant-design/icons';
+import { PostItemType } from '../types/post';
 import { rem } from '../utils/rem';
+import RecommendationCard from './RecommendationCard';
 import { Image } from "antd";
+import { LikeOutlined } from '@ant-design/icons';
+
 
 const PostContainer = styled.div`
   margin-bottom: ${rem(8)};
@@ -13,9 +15,9 @@ const PostContainer = styled.div`
   background: white;
 `;
 
-const MediaContainer = styled.div<{ aspectRatio: number }>`
+const MediaContainer = styled.div<{ $aspectRatio: number }>`
   position: relative;
-  padding-top: ${(props: { aspectRatio: number; }) => (1 / props.aspectRatio) * 100}%;
+  padding-top: ${props => (1 / props.$aspectRatio) * 100}%;
   overflow: hidden;
 `;
 
@@ -110,15 +112,20 @@ const Container = styled.div`
 `
 
 interface PostItemProps {
-  post: Post;
+  item: PostItemType;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ post }) => {
+const PostItemComponent: React.FC<PostItemProps> = ({ item }) => {
+  if (item.type === 'recommendation') {
+    return <RecommendationCard card={item} />;
+  }
+
+  const post = item;
   const aspectRatio = post.width / post.height;
 
   return (
     <PostContainer>
-      <MediaContainer aspectRatio={aspectRatio}>
+      <MediaContainer $aspectRatio={aspectRatio}>
         {post.type === 'video' ? (
           <Video controls poster={post.mediaPoster} id="player">
             <source src={post.mediaUrl} type="video/mp4" />
@@ -147,4 +154,4 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
   );
 };
 
-export default PostItem;
+export default PostItemComponent;

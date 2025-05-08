@@ -19,7 +19,7 @@ export const usePullToRefresh = (onRefresh: () => Promise<void>) => {
       const diff = y - startY;
       
       if (diff > 0) {
-        e.preventDefault();
+        // e.preventDefault();
         setPullDown(Math.min(diff, 100));
       }
     },

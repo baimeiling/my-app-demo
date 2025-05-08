@@ -1,5 +1,5 @@
 import { ApiResponse, Post } from '../types/post';
-import { generateMockData } from '../utils/mockData';
+import { generateMockPosts } from '../utils/mockData';
 
 export const fetchPosts = async (
   page: number,
@@ -9,10 +9,10 @@ export const fetchPosts = async (
   await new Promise(resolve => setTimeout(resolve, 500));
   
   // 根据不同的dataType参数返回不同的数据
-  const data = generateMockData(page, dataType);
+  const data = generateMockPosts(page, dataType);
   
   return {
     data,
-    nextPage: page < 10 ? page + 1 : null // 模拟只有3页数据
+    nextPage: page < 5 ? page + 1 : null // 模拟只有5页数据
   };
 };
